@@ -226,7 +226,6 @@ public class ProjectSudoku {
         int x =(int)(Math.random() * 9);
         int y =(int)(Math.random() * 9);
         notsolvedpuzzle0[x][y]=0;
-        System.out.println(toStrings(notsolvedpuzzle0));
         if(stillSameSolution()){
             notsolvedpuzzle1[x][y]=0;
         }
@@ -261,15 +260,15 @@ public class ProjectSudoku {
                 }
             }
         }
-        SudokuSolver.Solve4(notsolvedpuzzle4);
+        /* SudokuSolver.Solve4(notsolvedpuzzle4);
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle4[i][j]){
                     return false;
                 }
             }
-        }
-        SudokuSolver.Solve5(notsolvedpuzzle5);
+        } */
+        /* SudokuSolver.Solve5(notsolvedpuzzle5);
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle5[i][j]){
@@ -300,7 +299,15 @@ public class ProjectSudoku {
                     return false;
                 }
             }
-        }
+        } */
+        /* SudokuSolver.Solve9(notsolvedpuzzle9);
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle9[i][j]){
+                    return false;
+                }
+            }
+        } */
         return true;
     }
 
