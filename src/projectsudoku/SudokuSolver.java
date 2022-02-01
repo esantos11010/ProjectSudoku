@@ -3,6 +3,7 @@ package projectsudoku;
 import java.util.ArrayList;
 
 public class SudokuSolver {
+    //starts at top left, moves across
     public static boolean Solve1(int[][] Sudoku){
         boolean solved=true;
         int x=0, y=0;
@@ -35,7 +36,7 @@ public class SudokuSolver {
             }
         return false;
     }
-
+    //starts at bottom right, moves up
     public static boolean Solve2(int[][] Sudoku){
         boolean solved=true;
         int x=0, y=0;
@@ -68,7 +69,7 @@ public class SudokuSolver {
             }
         return false;
     }
-
+    //starts at top left, moves down
     public static boolean Solve3(int[][] Sudoku){
         boolean solved=true;
         int x=0, y=0;
@@ -101,7 +102,7 @@ public class SudokuSolver {
             }
         return false;
     }
-
+    //starts at bottom right moves across
     public static boolean Solve4(int[][] Sudoku){
         boolean solved=true;
         int x=0, y=0;
@@ -171,8 +172,8 @@ public class SudokuSolver {
     public static boolean Solve6(int[][] Sudoku){
         boolean solved=true;
         int x=0, y=0;
-            for(int col=8;col>0;col--){
-                for(int row=8;row>0;row--){
+            for(int col=8;col>-1;col--){
+                for(int row=8;row>-1;row--){
                     if(Sudoku[row][col]==0){
                         x=row;
                         y=col;
@@ -238,8 +239,8 @@ public class SudokuSolver {
     public static boolean Solve8(int[][] Sudoku){
         boolean solved=true;
         int x=0, y=0;
-            for(int row=8;row>0;row--){
-                for(int col=8;col>0;col--){
+            for(int row=8;row>-1;row--){
+                for(int col=8;col>-1;col--){
                     if(Sudoku[row][col]==0){
                         x=row;
                         y=col;
@@ -267,13 +268,45 @@ public class SudokuSolver {
             }
         return false;
     }
-
+    //starts at top right moves across
     public static boolean Solve9(int[][] Sudoku){
         boolean solved=true;
         int x=0, y=0;
             for(int row=0;row<9;row++){
-                for(int col=8;col>0;col--){
-                    System.out.println(col);
+                for(int col=8;col>-1;col--){
+                    if(Sudoku[row][col]==0){
+                        x=row;
+                        y=col;
+                        solved=false;
+                        break;
+                    }
+                }
+                if(!solved){
+                    break;
+                }
+            }
+            if(solved){
+                return true;
+            }
+            for(int n=1; n<=9;n++){
+                if(checkAvailable(Sudoku, x, y, n)){
+                    Sudoku[x][y]=n;
+                    if(Solve1(Sudoku)){
+                        return true;
+                    }
+                    else{
+                        Sudoku[x][y]=0;
+                    }
+                }
+            }
+        return false;
+    }
+
+    public static boolean Solve10(int[][] Sudoku){
+        boolean solved=true;
+        int x=0, y=0;
+            for(int col=0;col<9;col++){
+                for(int row=8;row>-1;row--){
                     if(Sudoku[row][col]==0){
                         x=row;
                         y=col;

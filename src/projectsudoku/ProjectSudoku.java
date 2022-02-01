@@ -29,15 +29,23 @@ public class ProjectSudoku {
     static GridLayout Grid= new GridLayout(9,9,0,0);
     static JPanel SG=new JPanel(Grid);
     static int [][] solvedpuzzle1=new int[9][9];
-    static int [][] notsolvedpuzzle1=new int[9][9];
-    static int [][] notsolvedpuzzle2=new int[9][9];
-    static int [][] notsolvedpuzzle3=new int[9][9];
-    static int [][] notsolvedpuzzle4=new int[9][9];
-    static int [][] notsolvedpuzzle5=new int[9][9];
-    static int [][] notsolvedpuzzle6=new int[9][9];
-    static int [][] notsolvedpuzzle7=new int[9][9];
-    static int [][] notsolvedpuzzle8=new int[9][9];
-    static int [][] notsolvedpuzzle9=new int[9][9];
+    static int [][] notsolvedpuzzle01=new int[9][9];
+    static int [][] notsolvedpuzzle02=new int[9][9];
+    static int [][] notsolvedpuzzle03=new int[9][9];
+    static int [][] notsolvedpuzzle04=new int[9][9];
+    static int [][] notsolvedpuzzle05=new int[9][9];
+    static int [][] notsolvedpuzzle06=new int[9][9];
+    static int [][] notsolvedpuzzle07=new int[9][9];
+    static int [][] notsolvedpuzzle08=new int[9][9];
+    static int [][] notsolvedpuzzle09=new int[9][9];
+    static int [][] notsolvedpuzzle10=new int[9][9];
+    static int [][] notsolvedpuzzle11=new int[9][9];
+    static int [][] notsolvedpuzzle12=new int[9][9];
+    static int [][] notsolvedpuzzle13=new int[9][9];
+    static int [][] notsolvedpuzzle14=new int[9][9];
+    static int [][] notsolvedpuzzle15=new int[9][9];
+    static int [][] notsolvedpuzzle16=new int[9][9];
+    static int [][] notsolvedpuzzle17=new int[9][9];
     static int [][] notsolvedpuzzle0=new int[9][9]; //used for proposed removals
     static int BoxSize=80;
     static int top=1, bot=1, left=1, right=1;
@@ -212,14 +220,17 @@ public class ProjectSudoku {
         SudokuSolver.Solve1(solvedpuzzle1);
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
-                notsolvedpuzzle1[i][j]=solvedpuzzle1[i][j];
+                notsolvedpuzzle01[i][j]=solvedpuzzle1[i][j];
                 notsolvedpuzzle0[i][j]=solvedpuzzle1[i][j];
             }
         }
-        while(stillSameSolution()){
+        counter=0;
+        while(counter<57){
+            System.out.println(counter);
             removeDiagonal();
+            countTheEmptySquares();
         }
-        LoadSudoku(notsolvedpuzzle1);
+        LoadSudoku(notsolvedpuzzle01);
     }
     
     public static void removeDiagonal(){
@@ -227,90 +238,112 @@ public class ProjectSudoku {
         int y =(int)(Math.random() * 9);
         notsolvedpuzzle0[x][y]=0;
         if(stillSameSolution()){
-            notsolvedpuzzle1[x][y]=0;
+            notsolvedpuzzle01[x][y]=0;
+        }
+        else{
+            notsolvedpuzzle0[x][y]=notsolvedpuzzle01[x][y];
         }
     }
 
     public static boolean stillSameSolution(){
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
-                notsolvedpuzzle2[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle3[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle4[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle5[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle6[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle7[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle8[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle9[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle02[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle03[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle04[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle05[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle06[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle07[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle08[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle09[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle10[i][j]=notsolvedpuzzle0[i][j];
             }
         }
-        SudokuSolver.Solve2(notsolvedpuzzle2);
+        SudokuSolver.Solve2(notsolvedpuzzle02);
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
-                if(solvedpuzzle1[i][j]!=notsolvedpuzzle2[i][j]){
-                    return false;
-                }
-            }
-        }
-        SudokuSolver.Solve3(notsolvedpuzzle3);
-        for(int i=0; i<9; i++){
-            for(int j=0; j<9; j++){
-                if(solvedpuzzle1[i][j]!=notsolvedpuzzle3[i][j]){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle02[i][j]){
                     return false;
                 }
             }
         }
-        /* SudokuSolver.Solve4(notsolvedpuzzle4);
+        SudokuSolver.Solve3(notsolvedpuzzle03);
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
-                if(solvedpuzzle1[i][j]!=notsolvedpuzzle4[i][j]){
-                    return false;
-                }
-            }
-        } */
-        /* SudokuSolver.Solve5(notsolvedpuzzle5);
-        for(int i=0; i<9; i++){
-            for(int j=0; j<9; j++){
-                if(solvedpuzzle1[i][j]!=notsolvedpuzzle5[i][j]){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle03[i][j]){
                     return false;
                 }
             }
         }
-        SudokuSolver.Solve6(notsolvedpuzzle6);
+        SudokuSolver.Solve4(notsolvedpuzzle04);
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
-                if(solvedpuzzle1[i][j]!=notsolvedpuzzle6[i][j]){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle04[i][j]){
                     return false;
                 }
             }
         }
-        SudokuSolver.Solve7(notsolvedpuzzle7);
+        SudokuSolver.Solve5(notsolvedpuzzle05);
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
-                if(solvedpuzzle1[i][j]!=notsolvedpuzzle7[i][j]){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle05[i][j]){
                     return false;
                 }
             }
         }
-        SudokuSolver.Solve8(notsolvedpuzzle8);
+        SudokuSolver.Solve6(notsolvedpuzzle06);
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
-                if(solvedpuzzle1[i][j]!=notsolvedpuzzle8[i][j]){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle06[i][j]){
                     return false;
                 }
             }
-        } */
-        /* SudokuSolver.Solve9(notsolvedpuzzle9);
+        }
+        SudokuSolver.Solve7(notsolvedpuzzle07);
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
-                if(solvedpuzzle1[i][j]!=notsolvedpuzzle9[i][j]){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle07[i][j]){
                     return false;
                 }
             }
-        } */
+        }
+        SudokuSolver.Solve8(notsolvedpuzzle08);
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle08[i][j]){
+                    return false;
+                }
+            }
+        }
+        SudokuSolver.Solve9(notsolvedpuzzle09);
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle09[i][j]){
+                    return false;
+                }
+            }
+        }
+        SudokuSolver.Solve10(notsolvedpuzzle10);
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle10[i][j]){
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
+    public static void countTheEmptySquares(){
+        counter=0;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (notsolvedpuzzle01[i][j]==0) {
+                    counter++;
+                }
+            }
+        }
+    }
     public static ArrayList<Integer> numberHolder(){
         ArrayList<Integer> hello=new ArrayList<>();
         hello.add(1);
@@ -376,7 +409,7 @@ public class ProjectSudoku {
         String s="";
         for(int i=0;i<9;i++){
             for(int j=0;j<9;j++){
-                if(s1[i][j]==notsolvedpuzzle1[i][j]){
+                if(s1[i][j]==notsolvedpuzzle01[i][j]){
                     s+=" "+s1[i][j]+" ";
                 }
                 else{
@@ -455,7 +488,7 @@ public static void main(String[] args) {
         });
         MI4.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent actionEvent){
-                LoadSudokuSolution(notsolvedpuzzle1, solvedpuzzle1);
+                LoadSudokuSolution(notsolvedpuzzle01, solvedpuzzle1);
                 Main.revalidate();
                 
             }
