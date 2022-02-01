@@ -13,16 +13,13 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-//import javax.swing.border.Border;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 
-//import jdk.tools.jmod.Main;
-
 /**
  *
- * @author Work
+ * @author Ed
  */
 public class ProjectSudoku {
 
@@ -32,26 +29,24 @@ public class ProjectSudoku {
     static GridLayout Grid= new GridLayout(9,9,0,0);
     static JPanel SG=new JPanel(Grid);
     static int [][] solvedpuzzle1=new int[9][9];
-    static int [][] solvedpuzzle2=new int[9][9];
     static int [][] notsolvedpuzzle1=new int[9][9];
     static int [][] notsolvedpuzzle2=new int[9][9];
     static int [][] notsolvedpuzzle3=new int[9][9];
     static int [][] notsolvedpuzzle4=new int[9][9];
     static int [][] notsolvedpuzzle5=new int[9][9];
+    static int [][] notsolvedpuzzle6=new int[9][9];
+    static int [][] notsolvedpuzzle7=new int[9][9];
+    static int [][] notsolvedpuzzle8=new int[9][9];
+    static int [][] notsolvedpuzzle9=new int[9][9];
+    static int [][] notsolvedpuzzle0=new int[9][9]; //used for proposed removals
     static int BoxSize=80;
     static int top=1, bot=1, left=1, right=1;
-    //static Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
-    //static Border rightBorder = BorderFactory.createMatteBorder(1, 1, 1, 4, Color.black);
     static Font font1 = new Font("ARIEL", Font.BOLD, 40);
     static Font font2 = new Font("MONOSPACED", Font.BOLD, 14);
-    //static Dimension GridSize=new Dimension(BoxSize*10,BoxSize*9+40);// must add to make roome for menu bar and line width
-    //static JTextField[][] boxes1=new JTextField [9][9];
     static JTextField[][] boxes=new JTextField [9][9];
     static JPanel Main=new JPanel(new BorderLayout());
     static ArrayList<Integer> available=new ArrayList<>();
     static ArrayList<Integer> U=new ArrayList<>();
-    
-    
     
     public static void Check(){
         for(int i=0; i<9;i++){
@@ -99,12 +94,9 @@ public class ProjectSudoku {
     public static void LoadSudokuSolution(int[][] P, int[][]SP) {
         for(int i=0; i<9;i++){
             for(int j=0;j<9;j++){
-                //if(boxes[i][j]==0){
                     SG.remove(boxes[i][j]);
-                //}
             }
         }
-        //SG.setMaximumSize(GridSize);
         for(int i=0; i<9;i++){
             for(int j=0;j<9;j++){
                 if(P[i][j]==0){
@@ -143,7 +135,6 @@ public class ProjectSudoku {
                 SG.remove(boxes[i][j]);
             }
         }
-        //SG.setMaximumSize(GridSize);
         for(int i=0; i<9;i++){
             for(int j=0;j<9;j++){
                 if(P[i][j]==0){
@@ -195,12 +186,10 @@ public class ProjectSudoku {
     public static void Create(){
         available=numberHolder();
         solvedpuzzle1 = new int[9][9];
-        solvedpuzzle2 = new int[9][9];
         for(int row=0; row<3;row++){
             for(int col=0;col<3;col++){
                 int num = available.get((int)(Math.random() * ((available.size()))));
                 solvedpuzzle1[row][col]=num;
-                //solvedpuzzle2[row][col]=num;
                 available.remove((Object)solvedpuzzle1[row][col]);
             }
         }
@@ -209,13 +198,7 @@ public class ProjectSudoku {
             for(int col=3;col<6;col++){
                 int num = available.get((int)(Math.random() * ((available.size()))));
                 solvedpuzzle1[row][col]=num;
-                //solvedpuzzle2[row][col]=num;
                 available.remove((Object)solvedpuzzle1[row][col]);
-                /*
-                solvedpuzzle1[row][col]=available.get((int)(Math.random() * ((available.size()))));
-                solvedpuzzle2[row][col]=solvedpuzzle1[row][col];
-                available.remove((Object)solvedpuzzle1[row][col]);
-                */
             }
         }
         available=numberHolder();
@@ -223,78 +206,46 @@ public class ProjectSudoku {
             for(int col=6;col<9;col++){
                 int num = available.get((int)(Math.random() * ((available.size()))));
                 solvedpuzzle1[row][col]=num;
-                //solvedpuzzle2[row][col]=num;
                 available.remove((Object)solvedpuzzle1[row][col]);
-                /*
-                solvedpuzzle1[row][col]=available.get((int)(Math.random() * ((available.size()))));
-                solvedpuzzle2[row][col]=solvedpuzzle1[row][col];
-                available.remove((Object)solvedpuzzle1[row][col]);
-                */
             }
         }
-        SudokuSolver.Solve(solvedpuzzle1);
-        notsolvedpuzzle1=new int[9][9];
-        notsolvedpuzzle2=new int[9][9];
-        notsolvedpuzzle3=new int[9][9];
-        notsolvedpuzzle4=new int[9][9];
+        SudokuSolver.Solve1(solvedpuzzle1);
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 notsolvedpuzzle1[i][j]=solvedpuzzle1[i][j];
-                //notsolvedpuzzle2[i][j]=solvedpuzzle1[i][j];
-                //notsolvedpuzzle3[i][j]=solvedpuzzle1[i][j];
-                //notsolvedpuzzle4[i][j]=solvedpuzzle1[i][j];
+                notsolvedpuzzle0[i][j]=solvedpuzzle1[i][j];
             }
         }
-        
-        //System.out.println(toStrings(notsolvedpuzzle1));
-        //SudokuSolver.Solve(notsolvedpuzzle1);
-        //System.out.println(toStrings(notsolvedpuzzle1));
-        //SudokuSolver.Solve2(notsolvedpuzzle2);
-        //System.out.println(toStrings(notsolvedpuzzle2));
-        //SudokuSolver.Solve3(notsolvedpuzzle3);
-        //System.out.println(toStrings(notsolvedpuzzle3));
-        //SudokuSolver.Solve4(notsolvedpuzzle4);
-        //System.out.println(toStrings(notsolvedpuzzle4));
-        //create method to finalize sudoku
         while(stillSameSolution()){
             removeDiagonal();
         }
-        /* do {
-            removeDiagonal();
-        }while(stillSameSolution());
-         */
         LoadSudoku(notsolvedpuzzle1);
     }
     
     public static void removeDiagonal(){
         int x =(int)(Math.random() * 9);
         int y =(int)(Math.random() * 9);
-        notsolvedpuzzle1[x][y]=0;
-        notsolvedpuzzle1[y][x]=0;
-        notsolvedpuzzle1[8-x][8-y]=0;
-        notsolvedpuzzle1[8-y][8-x]=0;
+        notsolvedpuzzle0[x][y]=0;
+        System.out.println(toStrings(notsolvedpuzzle0));
+        if(stillSameSolution()){
+            notsolvedpuzzle1[x][y]=0;
+        }
     }
 
     public static boolean stillSameSolution(){
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
-                notsolvedpuzzle2[i][j]=notsolvedpuzzle1[i][j];
-                notsolvedpuzzle3[i][j]=notsolvedpuzzle1[i][j];
-                notsolvedpuzzle4[i][j]=notsolvedpuzzle1[i][j];
-                notsolvedpuzzle5[i][j]=notsolvedpuzzle1[i][j];
-            }
-        }
-        SudokuSolver.Solve(notsolvedpuzzle5);
-        //System.out.println(toStrings(solvedpuzzle2));
-        for(int i=0; i<9; i++){
-            for(int j=0; j<9; j++){
-                if(solvedpuzzle1[i][j]!=notsolvedpuzzle5[i][j]){
-                    return false;
-                }
+                notsolvedpuzzle2[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle3[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle4[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle5[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle6[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle7[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle8[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle9[i][j]=notsolvedpuzzle0[i][j];
             }
         }
         SudokuSolver.Solve2(notsolvedpuzzle2);
-        //System.out.println(toStrings(solvedpuzzle2));
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle2[i][j]){
@@ -303,7 +254,6 @@ public class ProjectSudoku {
             }
         }
         SudokuSolver.Solve3(notsolvedpuzzle3);
-        //System.out.println(toStrings(solvedpuzzle2));
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle3[i][j]){
@@ -312,7 +262,6 @@ public class ProjectSudoku {
             }
         }
         SudokuSolver.Solve4(notsolvedpuzzle4);
-        //System.out.println(toStrings(solvedpuzzle2));
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle4[i][j]){
@@ -320,7 +269,38 @@ public class ProjectSudoku {
                 }
             }
         }
-        
+        SudokuSolver.Solve5(notsolvedpuzzle5);
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle5[i][j]){
+                    return false;
+                }
+            }
+        }
+        SudokuSolver.Solve6(notsolvedpuzzle6);
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle6[i][j]){
+                    return false;
+                }
+            }
+        }
+        SudokuSolver.Solve7(notsolvedpuzzle7);
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle7[i][j]){
+                    return false;
+                }
+            }
+        }
+        SudokuSolver.Solve8(notsolvedpuzzle8);
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                if(solvedpuzzle1[i][j]!=notsolvedpuzzle8[i][j]){
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -416,13 +396,11 @@ public static void main(String[] args) {
         // TODO Create a function for the window of the app to go in
         // TODO remake the remove fuction, currently there are puzzles with multiple solutions being passed
         // TODO remake create
-
         JFrame frame=new JFrame("Project:Sudoku");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setLayout(new BorderLayout());
         JMenuBar MB=new JMenuBar();
         JMenu M=new JMenu("Menu");
-        JMenuItem MI1, MI2, MI3, MI4;//=new JMenuItem()
+        JMenuItem MI1, MI2, MI3, MI4;
         MI1=new JMenuItem("Start", KeyEvent.VK_S);
         MI2=new JMenuItem("Instuctions", KeyEvent.VK_H);
         MI3=new JMenuItem("Check", KeyEvent.VK_C);
@@ -486,7 +464,6 @@ public static void main(String[] args) {
         frame.add(MB, BorderLayout.NORTH);
         frame.add(Main);
         frame.setVisible(true);
-        //frame.setPreferredSize(new Dimension(BoxSize*10,BoxSize*9+40));
         frame.setPreferredSize(new Dimension(700,700));
         frame.pack();
         frame.setLocationRelativeTo(null);

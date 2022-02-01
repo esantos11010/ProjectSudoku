@@ -3,7 +3,7 @@ package projectsudoku;
 import java.util.ArrayList;
 
 public class SudokuSolver {
-    public static boolean Solve(int[][] Sudoku){
+    public static boolean Solve1(int[][] Sudoku){
         boolean solved=true;
         int x=0, y=0;
             for(int row=0;row<9;row++){
@@ -25,40 +25,7 @@ public class SudokuSolver {
             for(int n=1; n<=9;n++){
                 if(checkAvailable(Sudoku, x, y, n)){
                     Sudoku[x][y]=n;
-                    if(Solve(Sudoku)){
-                        return true;
-                    }
-                    else{
-                        Sudoku[x][y]=0;
-                    }
-                }
-            }
-        return false;
-    }
-
-    public static boolean Solve3(int[][] Sudoku){
-        boolean solved=true;
-        int x=0, y=0;
-            for(int col=0;col<9;col++){
-                for(int row=0;row<9;row++){
-                    if(Sudoku[row][col]==0){
-                        x=row;
-                        y=col;
-                        solved=false;
-                        break;
-                    }
-                }
-                if(!solved){
-                    break;
-                }
-            }
-            if(solved){
-                return true;
-            }
-            for(int n=1; n<=9;n++){
-                if(checkAvailable(Sudoku, x, y, n)){
-                    Sudoku[x][y]=n;
-                    if(Solve(Sudoku)){
+                    if(Solve1(Sudoku)){
                         return true;
                     }
                     else{
@@ -91,7 +58,40 @@ public class SudokuSolver {
             for(int n=1; n<=9;n++){
                 if(SudokuSolver.checkAvailable(Sudoku, x, y, n)){
                     Sudoku[x][y]=n;
-                    if(SudokuSolver.Solve(Sudoku)){
+                    if(SudokuSolver.Solve1(Sudoku)){
+                        return true;
+                    }
+                    else{
+                        Sudoku[x][y]=0;
+                    }
+                }
+            }
+        return false;
+    }
+
+    public static boolean Solve3(int[][] Sudoku){
+        boolean solved=true;
+        int x=0, y=0;
+            for(int col=0;col<9;col++){
+                for(int row=0;row<9;row++){
+                    if(Sudoku[row][col]==0){
+                        x=row;
+                        y=col;
+                        solved=false;
+                        break;
+                    }
+                }
+                if(!solved){
+                    break;
+                }
+            }
+            if(solved){
+                return true;
+            }
+            for(int n=1; n<=9;n++){
+                if(checkAvailable(Sudoku, x, y, n)){
+                    Sudoku[x][y]=n;
+                    if(Solve1(Sudoku)){
                         return true;
                     }
                     else{
@@ -124,7 +124,140 @@ public class SudokuSolver {
             for(int n=1; n<=9;n++){
                 if(SudokuSolver.checkAvailable(Sudoku, x, y, n)){
                     Sudoku[x][y]=n;
-                    if(SudokuSolver.Solve(Sudoku)){
+                    if(SudokuSolver.Solve1(Sudoku)){
+                        return true;
+                    }
+                    else{
+                        Sudoku[x][y]=0;
+                    }
+                }
+            }
+        return false;
+    }
+    //This is solve1 but starting the try at nine and working down to one instead
+    public static boolean Solve5(int[][] Sudoku){
+        boolean solved=true;
+        int x=0, y=0;
+            for(int row=0;row<9;row++){
+                for(int col=0;col<9;col++){
+                    if(Sudoku[row][col]==0){
+                        x=row;
+                        y=col;
+                        solved=false;
+                        break;
+                    }
+                }
+                if(!solved){
+                    break;
+                }
+            }
+            if(solved){
+                return true;
+            }
+            for(int n=9; n>=1;n--){
+                if(checkAvailable(Sudoku, x, y, n)){
+                    Sudoku[x][y]=n;
+                    if(Solve1(Sudoku)){
+                        return true;
+                    }
+                    else{
+                        Sudoku[x][y]=0;
+                    }
+                }
+            }
+        return false;
+    }
+    //This is solve2 but starting the try at nine and working down to one instead
+    public static boolean Solve6(int[][] Sudoku){
+        boolean solved=true;
+        int x=0, y=0;
+            for(int col=8;col>0;col--){
+                for(int row=8;row>0;row--){
+                    if(Sudoku[row][col]==0){
+                        x=row;
+                        y=col;
+                        solved=false;
+                        break;
+                    }
+                }
+                if(!solved){
+                    break;
+                }
+            }
+            if(solved){
+                return true;
+            }
+            for(int n=9; n>=1;n--){
+                if(SudokuSolver.checkAvailable(Sudoku, x, y, n)){
+                    Sudoku[x][y]=n;
+                    if(SudokuSolver.Solve1(Sudoku)){
+                        return true;
+                    }
+                    else{
+                        Sudoku[x][y]=0;
+                    }
+                }
+            }
+        return false;
+    }
+
+    //This is solve3 but starting the try at nine and working down to one instead
+    public static boolean Solve7(int[][] Sudoku){
+        boolean solved=true;
+        int x=0, y=0;
+            for(int col=0;col<9;col++){
+                for(int row=0;row<9;row++){
+                    if(Sudoku[row][col]==0){
+                        x=row;
+                        y=col;
+                        solved=false;
+                        break;
+                    }
+                }
+                if(!solved){
+                    break;
+                }
+            }
+            if(solved){
+                return true;
+            }
+            for(int n=9; n>=1;n--){
+                if(checkAvailable(Sudoku, x, y, n)){
+                    Sudoku[x][y]=n;
+                    if(Solve1(Sudoku)){
+                        return true;
+                    }
+                    else{
+                        Sudoku[x][y]=0;
+                    }
+                }
+            }
+        return false;
+    }
+    //This is solve4 but starting the try at nine and working down to one instead
+    public static boolean Solve8(int[][] Sudoku){
+        boolean solved=true;
+        int x=0, y=0;
+            for(int row=8;row>0;row--){
+                for(int col=8;col>0;col--){
+                    if(Sudoku[row][col]==0){
+                        x=row;
+                        y=col;
+                        solved=false;
+                        break;
+                    }
+                }
+                if(!solved){
+                    break;
+                }
+            }
+            if(solved){
+                return true;
+            }
+            for(int n=9; n>=1;n--){
+                if(SudokuSolver.checkAvailable(Sudoku, x, y, n)){
+                    Sudoku[x][y]=n;
+                    if(SudokuSolver.Solve1(Sudoku)){
                         return true;
                     }
                     else{
