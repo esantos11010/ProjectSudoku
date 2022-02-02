@@ -10,6 +10,8 @@ import java.awt.event.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -28,6 +30,8 @@ public class ProjectSudoku {
      */
     static GridLayout Grid= new GridLayout(9,9,0,0);
     static JPanel SG=new JPanel(Grid);
+    static int counter=0;
+    static ArrayList<Integer[]> squares = new ArrayList<>();
     static int [][] solvedpuzzle1=new int[9][9];
     static int [][] notsolvedpuzzle01=new int[9][9];
     static int [][] notsolvedpuzzle02=new int[9][9];
@@ -46,8 +50,8 @@ public class ProjectSudoku {
     static int [][] notsolvedpuzzle15=new int[9][9];
     static int [][] notsolvedpuzzle16=new int[9][9];
     static int [][] notsolvedpuzzle17=new int[9][9];
-    static int [][] notsolvedpuzzle0=new int[9][9]; //used for proposed removals
-    static int BoxSize=80;
+    static int [][] notsolvedpuzzle00=new int[9][9]; //used for proposed removals
+    //static int BoxSize=80;
     static int top=1, bot=1, left=1, right=1;
     static Font font1 = new Font("ARIEL", Font.BOLD, 40);
     static Font font2 = new Font("MONOSPACED", Font.BOLD, 14);
@@ -221,42 +225,53 @@ public class ProjectSudoku {
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 notsolvedpuzzle01[i][j]=solvedpuzzle1[i][j];
-                notsolvedpuzzle0[i][j]=solvedpuzzle1[i][j];
+                notsolvedpuzzle00[i][j]=solvedpuzzle1[i][j];
             }
         }
         counter=0;
-        while(counter<57){
+        //ArrayList<Integer[]> squares = new ArrayList<>();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                squares.add(new Integer[]{i, j});
+            }
+        }
+        while(counter<56){
             System.out.println(counter);
             removeDiagonal();
             countTheEmptySquares();
         }
+        System.out.println("DONE!");
         LoadSudoku(notsolvedpuzzle01);
     }
+    //redo this, start by creating a list of all squares, remove one at random check for solution then remove from list
     
     public static void removeDiagonal(){
-        int x =(int)(Math.random() * 9);
-        int y =(int)(Math.random() * 9);
-        notsolvedpuzzle0[x][y]=0;
+        Integer[] pair=squares.get((int)(Math.random() * (squares.size())));
+        int x = pair[0];
+        int y = pair[1];
+        System.out.println(x+" "+y);
+        notsolvedpuzzle00[x][y]=0;
         if(stillSameSolution()){
             notsolvedpuzzle01[x][y]=0;
+            squares.remove((Object)pair);
         }
         else{
-            notsolvedpuzzle0[x][y]=notsolvedpuzzle01[x][y];
+            notsolvedpuzzle00[x][y]=notsolvedpuzzle01[x][y];
         }
     }
 
     public static boolean stillSameSolution(){
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
-                notsolvedpuzzle02[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle03[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle04[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle05[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle06[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle07[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle08[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle09[i][j]=notsolvedpuzzle0[i][j];
-                notsolvedpuzzle10[i][j]=notsolvedpuzzle0[i][j];
+                notsolvedpuzzle02[i][j]=notsolvedpuzzle00[i][j];
+                notsolvedpuzzle03[i][j]=notsolvedpuzzle00[i][j];
+                notsolvedpuzzle04[i][j]=notsolvedpuzzle00[i][j];
+                notsolvedpuzzle05[i][j]=notsolvedpuzzle00[i][j];
+                notsolvedpuzzle06[i][j]=notsolvedpuzzle00[i][j];
+                notsolvedpuzzle07[i][j]=notsolvedpuzzle00[i][j];
+                notsolvedpuzzle08[i][j]=notsolvedpuzzle00[i][j];
+                notsolvedpuzzle09[i][j]=notsolvedpuzzle00[i][j];
+                notsolvedpuzzle10[i][j]=notsolvedpuzzle00[i][j];
             }
         }
         SudokuSolver.Solve2(notsolvedpuzzle02);
@@ -361,7 +376,7 @@ public class ProjectSudoku {
     public static void LoadHelp(){
         JFrame Help=new JFrame("Sudoku Rules");
         Help.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Help.setPreferredSize(new Dimension(BoxSize*5,BoxSize*2+20));
+        Help.setPreferredSize(new Dimension(400,180));
         JTextArea Instructions=new JTextArea();
         Instructions.setFont(font2);
         String s= "Sudoku is played on a grid of 9 x 9 spaces. \n"
@@ -402,7 +417,7 @@ public class ProjectSudoku {
         }
     }
 
-    static int counter=0;
+    
     
     public static String toStrings(int[][] s1){
         
