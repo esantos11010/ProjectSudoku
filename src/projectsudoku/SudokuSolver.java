@@ -335,6 +335,39 @@ public class SudokuSolver {
         return false;
     }
 
+    public static boolean Solve000000000(int[][] Sudoku){
+        boolean solved=true;
+        int x=0, y=0;
+            for(int row=0;row<9;row++){
+                for(int col=0;col<9;col++){
+                    if(Sudoku[row][col]==0){
+                        x=row;
+                        y=col;
+                        solved=false;
+                        break;
+                    }
+                }
+                if(!solved){
+                    break;
+                }
+            }
+            if(solved){
+                return true;
+            }
+            for(int n=1; n<=9;n++){
+                if(checkAvailable(Sudoku, x, y, n)){
+                    Sudoku[x][y]=n;
+                    if(Solve1(Sudoku)){
+                        return true;
+                    }
+                    else{
+                        Sudoku[x][y]=0;
+                    }
+                }
+            }
+        return false;
+    }
+
     public static boolean checkAvailable(int[][] S,int row, int col, int n){
         //U.clear();
         ArrayList<Integer> U=new ArrayList<>();
