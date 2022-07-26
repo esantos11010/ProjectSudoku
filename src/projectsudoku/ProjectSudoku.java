@@ -79,7 +79,7 @@ public class ProjectSudoku {
             }
         }
     }
-    
+    //this is used to check if a sudoku has been completed and then provide a win screen
     public static void Check2(){
         boolean finished=true;
         for(int i=0; i<9;i++){
@@ -233,11 +233,17 @@ public class ProjectSudoku {
                 squares.add(new Integer[]{i, j});
             }
         }
+
+
+        //REDO ALL OF THIS SH*T
         while(counter<56){
-            System.out.println(counter);
+            //System.out.println(counter);
             removeDiagonal();
             countTheEmptySquares();
         }
+        System.out.println("NEW FUNCTION HERE:");
+
+        SudokuSolver.Solutions(notsolvedpuzzle00);
         System.out.println("DONE!");
         LoadSudoku(notsolvedpuzzle01);
     }
@@ -247,9 +253,11 @@ public class ProjectSudoku {
         Integer[] pair=squares.get((int)(Math.random() * (squares.size())));
         int x = pair[0];
         int y = pair[1];
-        System.out.println(x+" "+y);
+        //System.out.println(x+" "+y);
         notsolvedpuzzle00[x][y]=0;
+        
         if(stillSameSolution()){
+
             notsolvedpuzzle01[x][y]=0;
             squares.remove((Object)pair);
         }
