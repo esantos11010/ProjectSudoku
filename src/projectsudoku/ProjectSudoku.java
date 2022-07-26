@@ -233,27 +233,21 @@ public class ProjectSudoku {
                 squares.add(new Integer[]{i, j});
             }
         }
-
-
-        //REDO ALL OF THIS SH*T
         while(counter<56){
-            //System.out.println(counter);
-            removeDiagonal();
+            removeValue();
             countTheEmptySquares();
         }
-        System.out.println("NEW FUNCTION HERE:");
+        //System.out.println("NEW FUNCTION HERE:");
 
         SudokuSolver.Solutions(notsolvedpuzzle00);
-        System.out.println("DONE!");
         LoadSudoku(notsolvedpuzzle01);
     }
-    //redo this, start by creating a list of all squares, remove one at random check for solution then remove from list
     
-    public static void removeDiagonal(){
+    public static void removeValue(){
         Integer[] pair=squares.get((int)(Math.random() * (squares.size())));
         int x = pair[0];
         int y = pair[1];
-        //System.out.println(x+" "+y);
+        //System.out.println("Trying to remove "+x+" "+y);
         notsolvedpuzzle00[x][y]=0;
         
         if(stillSameSolution()){
@@ -284,6 +278,7 @@ public class ProjectSudoku {
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle02[i][j]){
+                    //System.out.println("Solve2 Failed");
                     return false;
                 }
             }
@@ -292,6 +287,7 @@ public class ProjectSudoku {
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle03[i][j]){
+                    //System.out.println("Solve3 Failed");
                     return false;
                 }
             }
@@ -300,6 +296,7 @@ public class ProjectSudoku {
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle04[i][j]){
+                    //System.out.println("Solve4 Failed");
                     return false;
                 }
             }
@@ -308,6 +305,7 @@ public class ProjectSudoku {
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle05[i][j]){
+                    //System.out.println("Solve5 Failed");
                     return false;
                 }
             }
@@ -316,6 +314,7 @@ public class ProjectSudoku {
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle06[i][j]){
+                    //System.out.println("Solve6 Failed");
                     return false;
                 }
             }
@@ -324,6 +323,7 @@ public class ProjectSudoku {
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle07[i][j]){
+                    //System.out.println("Solve7 Failed");
                     return false;
                 }
             }
@@ -426,7 +426,6 @@ public class ProjectSudoku {
     
     
     public static String toStrings(int[][] s1){
-        
         String s="";
         for(int i=0;i<9;i++){
             for(int j=0;j<9;j++){
@@ -454,9 +453,7 @@ public class ProjectSudoku {
     }
 
 public static void main(String[] args) {
-        // TODO Create a function for the window of the app to go in
-        // TODO remake the remove fuction, currently there are puzzles with multiple solutions being passed
-        // TODO remake create
+
         JFrame frame=new JFrame("Project:Sudoku");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JMenuBar MB=new JMenuBar();

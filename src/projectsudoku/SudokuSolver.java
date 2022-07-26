@@ -3,7 +3,7 @@ package projectsudoku;
 import java.util.ArrayList;
 
 public class SudokuSolver {
-    //starts at top left, moves across
+    //starts at top left, moves horizontally
     public static boolean Solve1(int[][] Sudoku){
         boolean solved=true;
         int x=0, y=0;
@@ -21,6 +21,7 @@ public class SudokuSolver {
                 }
             }
             if(solved){
+                System.out.println("SOLVED");
                 return true;
             }
             for(int n=1; n<=9;n++){
@@ -36,7 +37,7 @@ public class SudokuSolver {
             }
         return false;
     }
-    //starts at bottom right, moves up
+    //starts at bottom right, moves vertically
     public static boolean Solve2(int[][] Sudoku){
         boolean solved=true;
         int x=0, y=0;
@@ -59,7 +60,7 @@ public class SudokuSolver {
             for(int n=1; n<=9;n++){
                 if(SudokuSolver.checkAvailable(Sudoku, x, y, n)){
                     Sudoku[x][y]=n;
-                    if(SudokuSolver.Solve1(Sudoku)){
+                    if(SudokuSolver.Solve2(Sudoku)){
                         return true;
                     }
                     else{
@@ -69,7 +70,7 @@ public class SudokuSolver {
             }
         return false;
     }
-    //starts at top left, moves down
+    //starts at top left, moves vertically
     public static boolean Solve3(int[][] Sudoku){
         boolean solved=true;
         int x=0, y=0;
@@ -92,7 +93,7 @@ public class SudokuSolver {
             for(int n=1; n<=9;n++){
                 if(checkAvailable(Sudoku, x, y, n)){
                     Sudoku[x][y]=n;
-                    if(Solve1(Sudoku)){
+                    if(Solve3(Sudoku)){
                         return true;
                     }
                     else{
@@ -102,7 +103,7 @@ public class SudokuSolver {
             }
         return false;
     }
-    //starts at bottom right moves across
+    //starts at bottom right moves horizontally 
     public static boolean Solve4(int[][] Sudoku){
         boolean solved=true;
         int x=0, y=0;
@@ -125,7 +126,7 @@ public class SudokuSolver {
             for(int n=1; n<=9;n++){
                 if(SudokuSolver.checkAvailable(Sudoku, x, y, n)){
                     Sudoku[x][y]=n;
-                    if(SudokuSolver.Solve1(Sudoku)){
+                    if(SudokuSolver.Solve4(Sudoku)){
                         return true;
                     }
                     else{
@@ -158,7 +159,7 @@ public class SudokuSolver {
             for(int n=9; n>=1;n--){
                 if(checkAvailable(Sudoku, x, y, n)){
                     Sudoku[x][y]=n;
-                    if(Solve1(Sudoku)){
+                    if(Solve5(Sudoku)){
                         return true;
                     }
                     else{
@@ -191,7 +192,7 @@ public class SudokuSolver {
             for(int n=9; n>=1;n--){
                 if(SudokuSolver.checkAvailable(Sudoku, x, y, n)){
                     Sudoku[x][y]=n;
-                    if(SudokuSolver.Solve1(Sudoku)){
+                    if(SudokuSolver.Solve6(Sudoku)){
                         return true;
                     }
                     else{
@@ -225,7 +226,7 @@ public class SudokuSolver {
             for(int n=9; n>=1;n--){
                 if(checkAvailable(Sudoku, x, y, n)){
                     Sudoku[x][y]=n;
-                    if(Solve1(Sudoku)){
+                    if(Solve7(Sudoku)){
                         return true;
                     }
                     else{
@@ -258,7 +259,7 @@ public class SudokuSolver {
             for(int n=9; n>=1;n--){
                 if(SudokuSolver.checkAvailable(Sudoku, x, y, n)){
                     Sudoku[x][y]=n;
-                    if(SudokuSolver.Solve1(Sudoku)){
+                    if(SudokuSolver.Solve8(Sudoku)){
                         return true;
                     }
                     else{
@@ -291,7 +292,7 @@ public class SudokuSolver {
             for(int n=1; n<=9;n++){
                 if(checkAvailable(Sudoku, x, y, n)){
                     Sudoku[x][y]=n;
-                    if(Solve1(Sudoku)){
+                    if(Solve9(Sudoku)){
                         return true;
                     }
                     else{
@@ -324,7 +325,7 @@ public class SudokuSolver {
             for(int n=1; n<=9;n++){
                 if(checkAvailable(Sudoku, x, y, n)){
                     Sudoku[x][y]=n;
-                    if(Solve1(Sudoku)){
+                    if(Solve10(Sudoku)){
                         return true;
                     }
                     else{
@@ -366,6 +367,47 @@ public class SudokuSolver {
                 }
             }
         return false;
+    }
+
+    public static int Solutions(int[][] Sudoku){
+        int solutions=0;
+        boolean solved=true;
+        int x=0, y=0;
+            for(int row=0;row<9;row++){
+                for(int col=0;col<9;col++){
+                    if(Sudoku[row][col]==0){
+                        x=row;
+                        y=col;
+                        solved=false;
+                        break;
+                    }
+                }
+                if(!solved){
+                    System.out.println("not solved");
+                    break;
+                }
+            }
+            if(solved){
+                System.out.println("solved");
+                ++solutions;
+                System.out.print(solutions+"\n");
+                //return solutions;
+            }
+
+            for(int n=1; n<=9;n++){
+                if(checkAvailable(Sudoku, x, y, n)){
+                    System.out.println("Trying "+n+ " at " +x+" "+y);
+                    Sudoku[x][y]=n;
+                    if(Solutions(Sudoku)>0){
+                        solutions++;
+                    }
+                    else{
+                        Sudoku[x][y]=0;
+                    }
+                }
+            }
+        System.out.println("HERE ? "+solutions);
+        return solutions;       
     }
 
     public static boolean checkAvailable(int[][] S,int row, int col, int n){
