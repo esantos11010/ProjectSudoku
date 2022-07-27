@@ -10,6 +10,7 @@ import java.awt.event.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -49,7 +50,6 @@ public class ProjectSudoku {
     //static int [][] notsolvedpuzzle16=new int[9][9];
     //static int [][] notsolvedpuzzle17=new int[9][9];
     static int [][] notsolvedpuzzle00=new int[9][9]; //used for proposed removals
-    //static int BoxSize=80;
     static int top=1, bot=1, left=1, right=1;
     static Font font1 = new Font("ARIEL", Font.BOLD, 40);
     static Font font2 = new Font("MONOSPACED", Font.BOLD, 14);
@@ -233,12 +233,10 @@ public class ProjectSudoku {
                 squares.add(new Integer[]{i, j});
             }
         }
-        //Counter can be moved up or down adjust number of clues higher numbers will take longer max:64
         long start = System.currentTimeMillis();
         long end = start + 20 * 1000;
         while (System.currentTimeMillis() < end) {
             removeValue();
-            countTheEmptySquares();
         }
         
 
@@ -358,20 +356,10 @@ public class ProjectSudoku {
                 }
             }
         }
-        System.out.println("WE HAVE A PASS!!!!! "+counter);
+        //System.out.println("WE HAVE A PASS!!!!! "+counter);
         return true;
     }
 
-    public static void countTheEmptySquares(){
-        counter=0;
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (notsolvedpuzzle01[i][j]==0) {
-                    counter++;
-                }
-            }
-        }
-    }
     public static ArrayList<Integer> numberHolder(){
         ArrayList<Integer> hello=new ArrayList<>();
         hello.add(1);
@@ -388,8 +376,8 @@ public class ProjectSudoku {
     
     public static void LoadHelp(){
         JFrame Help=new JFrame("Sudoku Rules");
-        Help.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Help.setPreferredSize(new Dimension(400,180));
+        //Help.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        //Help.setPreferredSize(new Dimension(400,180));
         JTextArea Instructions=new JTextArea();
         Instructions.setFont(font2);
         String s= "Sudoku is played on a grid of 9 x 9 spaces. \n"
@@ -399,11 +387,8 @@ public class ProjectSudoku {
                 + "the numbers 1-9, without \nrepeating any numbers within"
                 + " the row,\ncolumn or square. ";
         Instructions.setText(s);
-        Instructions.setColumns(75);
         Instructions.setEditable(false);
         Instructions.setBackground(Color.white);
-        Main.add(Instructions, BorderLayout.WEST);
-        Main.revalidate();
         Help.add(Instructions);
         Help.pack();
         Help.setLocationRelativeTo(null);
@@ -466,7 +451,7 @@ public static void main(String[] args) {
         JMenuBar MB=new JMenuBar();
         JMenu M=new JMenu("Menu");
         JMenuItem MI1, MI2, MI3, MI4;
-        MI1=new JMenuItem("Start", KeyEvent.VK_S);
+        MI1=new JMenuItem("Start(May take a minute to load)", KeyEvent.VK_S);
         MI2=new JMenuItem("Instuctions", KeyEvent.VK_H);
         MI3=new JMenuItem("Check", KeyEvent.VK_C);
         MI4=new JMenuItem("SOLVE");
