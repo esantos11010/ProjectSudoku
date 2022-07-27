@@ -41,13 +41,13 @@ public class ProjectSudoku {
     static int [][] notsolvedpuzzle08=new int[9][9];
     static int [][] notsolvedpuzzle09=new int[9][9];
     static int [][] notsolvedpuzzle10=new int[9][9];
-    static int [][] notsolvedpuzzle11=new int[9][9];
-    static int [][] notsolvedpuzzle12=new int[9][9];
-    static int [][] notsolvedpuzzle13=new int[9][9];
-    static int [][] notsolvedpuzzle14=new int[9][9];
-    static int [][] notsolvedpuzzle15=new int[9][9];
-    static int [][] notsolvedpuzzle16=new int[9][9];
-    static int [][] notsolvedpuzzle17=new int[9][9];
+    //static int [][] notsolvedpuzzle11=new int[9][9];
+    //static int [][] notsolvedpuzzle12=new int[9][9];
+    //static int [][] notsolvedpuzzle13=new int[9][9];
+    //static int [][] notsolvedpuzzle14=new int[9][9];
+    //static int [][] notsolvedpuzzle15=new int[9][9];
+    //static int [][] notsolvedpuzzle16=new int[9][9];
+    //static int [][] notsolvedpuzzle17=new int[9][9];
     static int [][] notsolvedpuzzle00=new int[9][9]; //used for proposed removals
     //static int BoxSize=80;
     static int top=1, bot=1, left=1, right=1;
@@ -233,16 +233,19 @@ public class ProjectSudoku {
                 squares.add(new Integer[]{i, j});
             }
         }
-        while(counter<56){
+        //Counter can be moved up or down adjust number of clues higher numbers will take longer max:64
+        long start = System.currentTimeMillis();
+        long end = start + 20 * 1000;
+        while (System.currentTimeMillis() < end) {
             removeValue();
             countTheEmptySquares();
         }
-        //System.out.println("NEW FUNCTION HERE:");
+        
 
-        SudokuSolver.Solutions(notsolvedpuzzle00);
+        //SudokuSolver.Solutions(notsolvedpuzzle00);
         LoadSudoku(notsolvedpuzzle01);
     }
-    
+
     public static void removeValue(){
         Integer[] pair=squares.get((int)(Math.random() * (squares.size())));
         int x = pair[0];
@@ -332,6 +335,7 @@ public class ProjectSudoku {
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle08[i][j]){
+                    //System.out.println("Solve8 Failed");
                     return false;
                 }
             }
@@ -340,6 +344,7 @@ public class ProjectSudoku {
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle09[i][j]){
+                    //System.out.println("Solve9 Failed");
                     return false;
                 }
             }
@@ -348,10 +353,12 @@ public class ProjectSudoku {
         for(int i=0; i<9; i++){
             for(int j=0; j<9; j++){
                 if(solvedpuzzle1[i][j]!=notsolvedpuzzle10[i][j]){
+                    //System.out.println("Solve10 Failed");
                     return false;
                 }
             }
         }
+        System.out.println("WE HAVE A PASS!!!!! "+counter);
         return true;
     }
 

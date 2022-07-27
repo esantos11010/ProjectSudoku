@@ -383,7 +383,7 @@ public class SudokuSolver {
                     }
                 }
                 if(!solved){
-                    System.out.println("not solved");
+                    //System.out.println("not solved");
                     break;
                 }
             }
