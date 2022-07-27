@@ -21,7 +21,7 @@ public class SudokuSolver {
                 }
             }
             if(solved){
-                System.out.println("SOLVED");
+                //System.out.println("SOLVED");
                 return true;
             }
             for(int n=1; n<=9;n++){
@@ -336,39 +336,7 @@ public class SudokuSolver {
         return false;
     }
 
-    public static boolean Solve000000000(int[][] Sudoku){
-        boolean solved=true;
-        int x=0, y=0;
-            for(int row=0;row<9;row++){
-                for(int col=0;col<9;col++){
-                    if(Sudoku[row][col]==0){
-                        x=row;
-                        y=col;
-                        solved=false;
-                        break;
-                    }
-                }
-                if(!solved){
-                    break;
-                }
-            }
-            if(solved){
-                return true;
-            }
-            for(int n=1; n<=9;n++){
-                if(checkAvailable(Sudoku, x, y, n)){
-                    Sudoku[x][y]=n;
-                    if(Solve1(Sudoku)){
-                        return true;
-                    }
-                    else{
-                        Sudoku[x][y]=0;
-                    }
-                }
-            }
-        return false;
-    }
-
+    //used to check for more than 1 solution, but is too time expensive, not used
     public static int Solutions(int[][] Sudoku){
         int solutions=0;
         boolean solved=true;
